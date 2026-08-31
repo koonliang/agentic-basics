@@ -17,7 +17,7 @@ A Claude subscription and Anthropic API usage are billed separately. Keep API ke
 | Lab | Topic | Status |
 | --- | --- | --- |
 | [Lab01](./Lab01/README.md) | Build a manual agent loop that calls a custom tool | Implemented |
-| Lab02 | Compare client, server, built-in, and MCP tools | Planned |
+| [Lab02](./Lab02/README.md) | Compare client and server tools; classify other tool types | Implemented |
 | Lab03 | Build a read-only agent with the Claude Agent SDK | Planned |
 | Lab04 | Add hooks, permissions, and human approval | Planned |
 | Lab05 | Build a local STDIO MCP server | Planned |
