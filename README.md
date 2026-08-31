@@ -20,8 +20,8 @@ A Claude subscription and Anthropic API usage are billed separately. Keep API ke
 | [Lab02](./Lab02/README.md) | Compare client and server tools; classify other tool types | Implemented |
 | [Lab03](./Lab03/README.md) | Build a read-only agent with the Claude Agent SDK | Implemented |
 | [Lab04](./Lab04/README.md) | Add hooks, permissions, and human approval | Implemented |
-| Lab05 | Build a local STDIO MCP server | Planned |
-| Lab06 | Build an MCP client and bridge its tools to Claude | Planned |
+| [Lab05](./Lab05/README.md) | Build a local Streamable HTTP MCP server | Implemented |
+| [Lab06](./Lab06/README.md) | Connect an HTTP MCP client and bridge its tools to Claude | Implemented |
 | Lab07 | Coordinate specialist subagents | Planned |
 | Lab08 | Evaluate agent tool choices with Message Batches | Planned |
 
@@ -59,11 +59,11 @@ Allow an agent to draft support replies while a `PreToolUse` hook restricts file
 
 ### Lab05 — Build an MCP server
 
-Create a local STDIO MCP server with order tools, a refund-policy resource, and a reusable support prompt. Test it through the MCP protocol rather than by calling implementation functions directly.
+Create a local Streamable HTTP MCP server with order tools, a refund-policy resource, and a reusable support prompt. Test it through the MCP protocol rather than by calling implementation functions directly.
 
 ### Lab06 — MCP client and Claude bridge
 
-Build a client that discovers MCP tools, resources, and prompts. Bridge the discovered tools into Claude so the model can use an MCP server without knowing its implementation.
+Build a client that connects to Lab05 through `MCP_SERVER_URL`, discovers MCP tools, resources, and prompts, and bridges the tools into Claude without knowing their implementation.
 
 ### Lab07 — Subagent orchestration
 

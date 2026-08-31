@@ -1,0 +1,26 @@
+{
+  "name": "agentic-ai-lab05",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "server": "node --env-file-if-exists=.env --import tsx src/index.ts",
+    "demo": "npm run server",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/node": "latest",
+    "@modelcontextprotocol/server": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "latest",
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

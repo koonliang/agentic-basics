@@ -1,0 +1,26 @@
+[
+  {
+    "id": "A1001",
+    "customer": "Aisha",
+    "status": "in_transit",
+    "carrier": "ParcelPost",
+    "tracking_number": "PP-4839201",
+    "estimated_delivery": "2026-09-02"
+  },
+  {
+    "id": "A1002",
+    "customer": "Ben",
+    "status": "delivered",
+    "carrier": "ParcelPost",
+    "tracking_number": "PP-4839202",
+    "estimated_delivery": "2026-08-29"
+  },
+  {
+    "id": "A1003",
+    "customer": "Chen",
+    "status": "processing",
+    "carrier": null,
+    "tracking_number": null,
+    "estimated_delivery": "2026-09-05"
+  }
+]
