@@ -22,7 +22,7 @@ A Claude subscription and Anthropic API usage are billed separately. Keep API ke
 | [Lab04](./Lab04/README.md) | Add hooks, permissions, and human approval | Implemented |
 | [Lab05](./Lab05/README.md) | Build a local Streamable HTTP MCP server | Implemented |
 | [Lab06](./Lab06/README.md) | Connect an HTTP MCP client and bridge its tools to Claude | Implemented |
-| Lab07 | Coordinate specialist subagents | Planned |
+| [Lab07](./Lab07/README.md) | Coordinate specialist subagents | Implemented |
 | Lab08 | Evaluate agent tool choices with Message Batches | Planned |
 
 ## Tool taxonomy
