@@ -37,18 +37,18 @@ Lab06 does not import any source code from Lab05 and does not know how its tools
 
 Requirements: Node.js 22 or later, an Anthropic-compatible API key, and the Lab05 server.
 
-Install both self-contained labs:
+From the repository root, create the shared environment and install both labs:
 
 ```bash
+cp .env.example .env
 cd Lab05
 npm ci
 
 cd ../Lab06
 npm ci
-cp .env.example .env
 ```
 
-Edit `Lab06/.env`:
+Edit the repository root `.env`:
 
 ```dotenv
 ANTHROPIC_API_KEY=your-key

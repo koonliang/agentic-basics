@@ -5,7 +5,7 @@ const prompt = process.argv.slice(2).join(" ").trim();
 const apiKey = process.env.ANTHROPIC_API_KEY;
 
 if (!prompt) throw new Error("Provide a prompt, for example: npm run server -- \"Search for today's AI news\"");
-if (!apiKey) throw new Error("Set ANTHROPIC_API_KEY in Lab02/.env.");
+if (!apiKey) throw new Error("Set ANTHROPIC_API_KEY in the repository root .env.");
 
 const client = new ClaudeClient(apiKey, process.env.ANTHROPIC_BASE_URL);
 const answer = await runServerToolDemo(client, prompt, {

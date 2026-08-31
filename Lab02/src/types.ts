@@ -7,7 +7,7 @@ export interface ModelRequest {
   model: string;
   max_tokens: number;
   messages: ConversationMessage[];
-  tools: unknown[];
+  tools?: unknown[];
   tool_choice?: {
     type: "auto" | "any" | "none";
     disable_parallel_tool_use?: boolean;

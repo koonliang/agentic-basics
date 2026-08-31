@@ -13,7 +13,7 @@ export function createAgentOptions(cwd: string, model: string): Options {
   return {
     cwd,
     model,
-    maxTurns: 6,
+    maxTurns: 8,
     tools: [...readOnlyTools],
     allowedTools: [...readOnlyTools],
     permissionMode: "dontAsk",
@@ -23,7 +23,9 @@ export function createAgentOptions(cwd: string, model: string): Options {
       preset: "claude_code",
       append: [
         "You are a read-only customer support investigator.",
-        "Use the available files to verify orders, case notes, and policies.",
+        "Cases are under cases/, order records are in orders.json, and policies are under policies/.",
+        "After reading the requested case, use direct reads or targeted searches to verify its order and relevant policy.",
+        "Avoid broad file searches when the location is already known, and answer as soon as the evidence is complete.",
         "Cite the relative file paths that support your answer and do not guess missing facts.",
       ].join(" "),
     },

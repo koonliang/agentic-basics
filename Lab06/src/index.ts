@@ -9,7 +9,7 @@ if (!prompt) {
   console.error('Usage: npm run demo -- "How many orders do I have, and what are their details?"');
   process.exitCode = 1;
 } else if (!process.env.ANTHROPIC_API_KEY) {
-  console.error("ANTHROPIC_API_KEY is missing. Copy .env.example to .env.");
+  console.error("ANTHROPIC_API_KEY is missing. Copy the root .env.example to .env.");
   process.exitCode = 1;
 } else {
   try {

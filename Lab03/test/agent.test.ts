@@ -8,11 +8,18 @@ test("configures an isolated read-only agent", () => {
 
   assert.equal(options.cwd, "/sample/workspace");
   assert.equal(options.model, "test-model");
-  assert.equal(options.maxTurns, 6);
+  assert.equal(options.maxTurns, 8);
   assert.deepEqual(options.tools, ["Read", "Glob", "Grep"]);
   assert.deepEqual(options.allowedTools, ["Read", "Glob", "Grep"]);
   assert.equal(options.permissionMode, "dontAsk");
   assert.deepEqual(options.settingSources, []);
+  const systemPrompt = options.systemPrompt;
+  if (typeof systemPrompt !== "object" || systemPrompt === null || Array.isArray(systemPrompt)) {
+    throw new Error("Expected preset system prompt.");
+  }
+  assert.equal(systemPrompt.type, "preset");
+  assert.match(systemPrompt.append ?? "", /order records are in orders\.json/);
+  assert.match(systemPrompt.append ?? "", /Avoid broad file searches/);
 });
 
 test("extracts initialization and assistant events", () => {

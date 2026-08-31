@@ -30,13 +30,15 @@ A hook is not a tool. A hook observes or intercepts lifecycle events such as a t
 
 Requirements: Node.js 22 or later and an Anthropic API key.
 
+From the repository root:
+
 ```bash
-cd Lab02
 cp .env.example .env
+cd Lab02
 npm install
 ```
 
-Edit `.env`:
+Edit the root `.env`:
 
 ```dotenv
 ANTHROPIC_API_KEY=your-key
@@ -83,6 +85,8 @@ npm run client -- --choice=none "How many orders do I have?"
 | `none` | Claude cannot call a tool |
 
 After a forced `any` call, the demo changes back to `auto` so Claude can produce a final answer.
+
+Anthropic's native API can express `none` as `tool_choice: { "type": "none" }`. This lab uses the portable equivalent of omitting both `tools` and `tool_choice` for that mode. With no tool definitions in the request, Claude cannot request an application tool. This also works through Bedrock Converse gateways, whose native tool-choice options do not include `none`.
 
 To tell Claude to emit at most one tool call per response and execute calls sequentially:
 

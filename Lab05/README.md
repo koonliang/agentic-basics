@@ -43,9 +43,10 @@ The HTTP layer creates a fresh MCP server for each request. This keeps the examp
 
 ## Run the lab
 
-Requirements: Node.js 22 or later and npm 10 or later.
+Requirements: Node.js 22 or later and npm 10 or later. From the repository root:
 
 ```bash
+cp .env.example .env
 cd Lab05
 npm ci
 npm run server
@@ -74,7 +75,7 @@ Use a different port if necessary:
 PORT=3100 npm run server
 ```
 
-You can also copy `.env.example` to `.env` and set `PORT` there. Stop the server with `Ctrl+C`.
+You can set `PORT` in the root `.env`. When changing it, update the port in `MCP_SERVER_URL` so Lab06 connects to the same endpoint. Stop the server with `Ctrl+C`.
 
 An MCP endpoint is not a normal web page. Use an MCP client to initialize a protocol connection, discover capabilities, and call them. The automated tests do exactly that:
 

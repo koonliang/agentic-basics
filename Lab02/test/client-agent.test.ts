@@ -125,7 +125,33 @@ test("tool choice none can finish without a tool call", async () => {
 
   assert.equal(answer, "I cannot inspect orders without a tool.");
   assert.equal(client.requests.length, 1);
-  assert.equal(client.requests[0]?.tool_choice?.type, "none");
+  assert.equal(client.requests[0]?.tools, undefined);
+  assert.equal(client.requests[0]?.tool_choice, undefined);
+});
+
+test("rejects a tool request returned while tools are disabled", async () => {
+  const client = new FakeClient([
+    { stop_reason: "tool_use", content: [] },
+  ]);
+
+  await assert.rejects(
+    runClientToolDemo(client, "How many orders?", {
+      model: "test-model",
+      choice: "none",
+    }),
+    /tool request while tools were disabled/,
+  );
+});
+
+test("explains a tool_use stop without a valid tool block", async () => {
+  const client = new FakeClient([
+    { stop_reason: "tool_use", content: [{ type: "text", text: "Calling a tool" }] },
+  ]);
+
+  await assert.rejects(
+    runClientToolDemo(client, "How many orders?", { model: "test-model" }),
+    /without a valid tool_use content block/,
+  );
 });
 
 test("sequential mode disables parallel tool use in the API request", async () => {

@@ -69,13 +69,15 @@ A valid path is not automatically approved. Returning `{}` from the hook lets no
 
 Requirements: Node.js 22 or later and an Anthropic-compatible API key.
 
+From the repository root:
+
 ```bash
+cp .env.example .env
 cd Lab04
 npm ci
-cp .env.example .env
 ```
 
-Edit `.env`:
+Edit the root `.env`:
 
 ```dotenv
 ANTHROPIC_API_KEY=your-key

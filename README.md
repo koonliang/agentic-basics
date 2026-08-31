@@ -10,7 +10,27 @@ Each lab is self-contained: enter its directory, install its dependencies, and f
 - npm 10 or later
 - An Anthropic API key with API billing enabled for labs that call Claude
 
-A Claude subscription and Anthropic API usage are billed separately. Keep API keys in a local `.env` file and never commit them.
+A Claude subscription and Anthropic API usage are billed separately. Keep API keys in the root `.env` file and never commit them.
+
+## Shared environment
+
+All labs load one environment file from the repository root. Create it once:
+
+```bash
+cp .env.example .env
+```
+
+The shared file contains:
+
+| Variable | Used by |
+| --- | --- |
+| `ANTHROPIC_API_KEY` | Labs that call Claude |
+| `ANTHROPIC_BASE_URL` | Anthropic SDK and Agent SDK labs |
+| `CLAUDE_MODEL` | Labs that call Claude |
+| `PORT` | Lab05 MCP server |
+| `MCP_SERVER_URL` | Lab06 MCP client |
+
+If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing shell environment variables take precedence over values loaded from `.env`.
 
 ## Learning path
 

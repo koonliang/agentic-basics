@@ -64,13 +64,15 @@ The coordinator must therefore include the case path and requested evidence in e
 
 Requirements: Node.js 22 or later and an Anthropic-compatible API key.
 
+From the repository root:
+
 ```bash
+cp .env.example .env
 cd Lab07
 npm ci
-cp .env.example .env
 ```
 
-Edit `.env`:
+Edit the root `.env`:
 
 ```dotenv
 ANTHROPIC_API_KEY=your-key

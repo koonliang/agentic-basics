@@ -4,7 +4,7 @@ import { runClientToolDemo, type ClientDemoEvent, type ToolChoice } from "./clie
 const { choice, parallel, prompt } = parseArguments(process.argv.slice(2));
 const apiKey = process.env.ANTHROPIC_API_KEY;
 
-if (!apiKey) throw new Error("Set ANTHROPIC_API_KEY in Lab02/.env.");
+if (!apiKey) throw new Error("Set ANTHROPIC_API_KEY in the repository root .env.");
 
 const client = new ClaudeClient(apiKey, process.env.ANTHROPIC_BASE_URL);
 const answer = await runClientToolDemo(client, prompt, {

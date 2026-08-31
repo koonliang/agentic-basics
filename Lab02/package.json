@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "client": "node --env-file-if-exists=.env --import tsx src/client-index.ts",
-    "server": "node --env-file-if-exists=.env --import tsx src/server-index.ts",
+    "client": "node --env-file-if-exists=../.env --import tsx src/client-index.ts",
+    "server": "node --env-file-if-exists=../.env --import tsx src/server-index.ts",
     "demo": "npm run client -- --choice=auto \"How many orders do I have?\"",
     "test": "node --import tsx --test test/**/*.test.ts",
     "typecheck": "tsc --noEmit"

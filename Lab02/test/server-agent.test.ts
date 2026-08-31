@@ -34,7 +34,9 @@ test("server web search needs no local tool_result message", async () => {
   assert.equal(answer, "Here is the result.");
   assert.equal(client.requests.length, 1);
   assert.deepEqual(client.requests[0]?.messages, [{ role: "user", content: "Search for AI news" }]);
-  assert.equal((client.requests[0]?.tools[0] as { type: string }).type, "web_search_20250305");
+  const sentTools = client.requests[0]?.tools;
+  assert.ok(sentTools);
+  assert.equal((sentTools[0] as { type: string }).type, "web_search_20250305");
 });
 
 test("continues a paused server-tool turn", async () => {

@@ -47,17 +47,21 @@ workspace/
 
 The sample case concerns a damaged item from order `A1002`. Claude must find the order record and applicable policy before recommending a refund.
 
+Because this workspace is intentionally small and its layout is part of the exercise, the system prompt tells the agent that cases are under `cases/`, order records are in `orders.json`, and policies are under `policies/`. Claude still decides whether to use `Read`, `Glob`, or `Grep`, but it should not spend turns guessing nonexistent directory structures.
+
 ## Setup
 
 Requirements: Node.js 22 or later and an Anthropic-compatible API key.
 
+From the repository root:
+
 ```bash
+cp .env.example .env
 cd Lab03
 npm ci
-cp .env.example .env
 ```
 
-Edit `.env`:
+Edit the root `.env`:
 
 ```dotenv
 ANTHROPIC_API_KEY=your-key
@@ -65,7 +69,7 @@ ANTHROPIC_BASE_URL=https://api.anthropic.com
 CLAUDE_MODEL=claude-haiku-4-5
 ```
 
-The npm script loads `.env` into the Node.js process. The Agent SDK's bundled Claude Code process inherits those environment variables.
+The npm script loads the root `.env` into the Node.js process. The Agent SDK's bundled Claude Code process inherits those environment variables.
 
 Your custom gateway can be used for this lab if it supports standard Anthropic Messages API client-tool calls. These built-in filesystem tools execute locally, so this lab does not require the Anthropic server-side web search capability that failed through the Bedrock-backed gateway in Lab02.
 
@@ -121,7 +125,7 @@ Each field has a separate role:
 | `permissionMode: "dontAsk"` | Denies any unapproved request instead of prompting |
 | `settingSources: []` | Prevents user or project Claude settings from adding behavior |
 | `cwd` | Makes the sample workspace the task's working directory |
-| `maxTurns: 6` | Stops an investigation that does not converge |
+| `maxTurns: 8` | Leaves room for evidence gathering and synthesis while stopping an investigation that does not converge |
 
 This is an application-level capability restriction, not an operating-system sandbox. Production agents handling untrusted input should also use process or container isolation.
 
@@ -151,7 +155,7 @@ The tests make no model calls. They verify the read-only configuration and conve
 
 1. Ask for a nonexistent order and observe how the agent reports missing evidence.
 2. Remove `Grep` from both tool lists and observe how the investigation changes.
-3. Change `maxTurns` to `1` and observe the SDK's maximum-turn result.
+3. Change `maxTurns` to `1` and observe the SDK's maximum-turn result. Broad searches or repeated guesses can exhaust the turn budget before the agent synthesizes an answer.
 4. Add another case and policy file, then ask the agent to discover them without naming their paths.
 5. Add `Write` only to `tools`, but not `allowedTools`; with `dontAsk`, the write is visible but denied. Do not enable it permanently in this read-only lab.
 

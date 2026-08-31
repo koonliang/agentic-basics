@@ -42,13 +42,15 @@ A Claude subscription does not include Anthropic API usage.
 
 ## Setup
 
+From the repository root:
+
 ```bash
+cp .env.example .env
 cd Lab01
 npm ci
-cp .env.example .env
 ```
 
-Edit `.env` and replace the placeholder value:
+Edit the root `.env` and replace the placeholder value:
 
 ```dotenv
 ANTHROPIC_API_KEY=your-api-key
@@ -115,7 +117,7 @@ They cover successful tool use, malformed input, unknown tools, unknown orders, 
 
 ## Troubleshooting
 
-- **Missing API key:** confirm `.env` exists inside `Lab01` and contains `ANTHROPIC_API_KEY`.
+- **Missing API key:** confirm `.env` exists in the repository root and contains `ANTHROPIC_API_KEY`.
 - **Unknown model:** set `CLAUDE_MODEL` to a model enabled for your Anthropic account.
 - **Order not found:** use one of the fixture IDs or add an order to `data/orders.json`.
 - **No tool call:** tool choice is model-controlled. Ask specifically for current order data.

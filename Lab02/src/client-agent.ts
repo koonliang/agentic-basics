@@ -77,24 +77,35 @@ export async function runClientToolDemo(
 
   for (let turn = 1; turn <= maxTurns; turn += 1) {
     const choice = turn === 1 ? (options.choice ?? "auto") : "auto";
-    const response = await client.create({
+    const request = {
       model: options.model,
       max_tokens: 1_024,
       messages,
-      tools: clientTools,
-      tool_choice: {
-        type: choice,
-        ...(!parallel ? { disable_parallel_tool_use: true } : {}),
-      },
-    });
+      ...(choice === "none" ? {} : {
+        tools: clientTools,
+        tool_choice: {
+          type: choice,
+          ...(!parallel ? { disable_parallel_tool_use: true } : {}),
+        },
+      }),
+    };
+    const response = await client.create(request);
 
     options.onEvent?.({ type: "model_response", turn, stopReason: response.stop_reason });
 
     const calls = response.content.filter(isToolUseBlock);
+    if (choice === "none" && (calls.length > 0 || response.stop_reason === "tool_use")) {
+      throw new Error("Model/gateway returned a tool request while tools were disabled.");
+    }
     if (calls.length === 0) {
       const answer = textFrom(response.content);
       if (response.stop_reason === "end_turn" && answer) return answer;
       if (response.stop_reason === "refusal") throw new Error(answer || "Claude refused the request.");
+      if (response.stop_reason === "tool_use") {
+        throw new Error(
+          "Model/gateway returned stop_reason=tool_use without a valid tool_use content block.",
+        );
+      }
       throw new Error(`Unexpected stop reason: ${response.stop_reason ?? "null"}`);
     }
 

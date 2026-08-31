@@ -6,7 +6,8 @@ import { createAgentOptions, eventsFromMessage, type AgentEvent } from "./agent.
 
 const defaultPrompt = [
   "Investigate cases/case-001.md.",
-  "Find the matching order and refund policy, then decide whether the customer qualifies for a refund.",
+  "Verify the matching record in orders.json and the applicable policy under policies/.",
+  "Then decide whether the customer qualifies for a refund.",
 ].join(" ");
 
 const prompt = process.argv.slice(2).join(" ").trim() || defaultPrompt;
@@ -14,7 +15,7 @@ const workspace = fileURLToPath(new URL("../workspace", import.meta.url));
 const model = process.env.CLAUDE_MODEL ?? "claude-haiku-4-5";
 
 if (!process.env.ANTHROPIC_API_KEY) {
-  throw new Error("Set ANTHROPIC_API_KEY in Lab03/.env.");
+  throw new Error("Set ANTHROPIC_API_KEY in the repository root .env.");
 }
 
 let completed = false;

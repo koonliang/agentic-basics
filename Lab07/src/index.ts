@@ -14,7 +14,7 @@ const workspace = fileURLToPath(new URL("../workspace", import.meta.url));
 const model = process.env.CLAUDE_MODEL ?? "claude-haiku-4-5";
 
 if (!process.env.ANTHROPIC_API_KEY) {
-  throw new Error("Set ANTHROPIC_API_KEY in Lab07/.env.");
+  throw new Error("Set ANTHROPIC_API_KEY in the repository root .env.");
 }
 
 let completed = false;

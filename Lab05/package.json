@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "server": "node --env-file-if-exists=.env --import tsx src/index.ts",
+    "server": "node --env-file-if-exists=../.env --import tsx src/index.ts",
     "demo": "npm run server",
     "test": "node --import tsx --test test/**/*.test.ts",
     "typecheck": "tsc --noEmit"

@@ -21,7 +21,7 @@ const auditFile = resolve(labDirectory, ".runtime", "audit.jsonl");
 const model = process.env.CLAUDE_MODEL ?? "claude-haiku-4-5";
 
 if (!process.env.ANTHROPIC_API_KEY) {
-  throw new Error("Set ANTHROPIC_API_KEY in Lab04/.env.");
+  throw new Error("Set ANTHROPIC_API_KEY in the repository root .env.");
 }
 
 const audit = createAuditWriter(auditFile);

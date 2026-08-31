@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "demo": "node --env-file-if-exists=.env --import tsx src/index.ts",
-    "inspect": "node --env-file-if-exists=.env --import tsx src/mcp-cli.ts inspect",
-    "resource": "node --env-file-if-exists=.env --import tsx src/mcp-cli.ts resource",
-    "prompt": "node --env-file-if-exists=.env --import tsx src/mcp-cli.ts prompt",
+    "demo": "node --env-file-if-exists=../.env --import tsx src/index.ts",
+    "inspect": "node --env-file-if-exists=../.env --import tsx src/mcp-cli.ts inspect",
+    "resource": "node --env-file-if-exists=../.env --import tsx src/mcp-cli.ts resource",
+    "prompt": "node --env-file-if-exists=../.env --import tsx src/mcp-cli.ts prompt",
     "test": "node --import tsx --test test/**/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
