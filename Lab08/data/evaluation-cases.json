@@ -1,0 +1,32 @@
+[
+  {
+    "custom_id": "count_only",
+    "prompt": "How many orders do I have?",
+    "expected_tool": "count_orders",
+    "expected_input": {}
+  },
+  {
+    "custom_id": "known_order",
+    "prompt": "What is the current status of order A1001?",
+    "expected_tool": "get_order_status",
+    "expected_input": { "order_id": "A1001" }
+  },
+  {
+    "custom_id": "discover_orders",
+    "prompt": "Give me the details of every order, but I do not know their IDs.",
+    "expected_tool": "list_order_ids",
+    "expected_input": {}
+  },
+  {
+    "custom_id": "unknown_order",
+    "prompt": "Check the status of order A9999.",
+    "expected_tool": "get_order_status",
+    "expected_input": { "order_id": "A9999" }
+  },
+  {
+    "custom_id": "no_tool_needed",
+    "prompt": "Write a friendly greeting for a customer.",
+    "expected_tool": null,
+    "expected_input": null
+  }
+]

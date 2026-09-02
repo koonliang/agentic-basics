@@ -43,7 +43,7 @@ If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing she
 | [Lab05](./Lab05/README.md) | Build a local Streamable HTTP MCP server | Implemented |
 | [Lab06](./Lab06/README.md) | Connect an HTTP MCP client and bridge its tools to Claude | Implemented |
 | [Lab07](./Lab07/README.md) | Coordinate specialist subagents | Implemented |
-| Lab08 | Evaluate agent tool choices with Message Batches | Planned |
+| [Lab08](./Lab08/README.md) | Evaluate agent tool choices with Message Batches | Implemented |
 
 ## Tool taxonomy
 
