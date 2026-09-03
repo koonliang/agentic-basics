@@ -9,6 +9,7 @@ Each lab is self-contained: enter its directory, install its dependencies, and f
 - Node.js 22 or later
 - npm 10 or later
 - An Anthropic API key with API billing enabled for labs that call Claude
+- Docker with Buildx for Lab09's ARM64 container exercise
 
 A Claude subscription and Anthropic API usage are billed separately. Keep API keys in the root `.env` file and never commit them.
 
@@ -44,6 +45,7 @@ If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing she
 | [Lab06](./Lab06/README.md) | Connect an HTTP MCP client and bridge its tools to Claude | Implemented |
 | [Lab07](./Lab07/README.md) | Coordinate specialist subagents | Implemented |
 | [Lab08](./Lab08/README.md) | Evaluate agent tool choices with Message Batches | Implemented |
+| [Lab09](./Lab09/README.md) | Package a Claude Agent SDK coordinator for AgentCore Runtime | Implemented |
 
 ## Tool taxonomy
 
@@ -93,6 +95,10 @@ Use the Agent SDK to coordinate an order investigator and a policy specialist. R
 
 Submit labeled support cases through the Message Batches API. Match results by `custom_id` and score whether Claude selected the expected tool with valid arguments.
 
+### Lab09 — AgentCore-compatible container
+
+Wrap Lab07's coordinator with the AgentCore Runtime HTTP contract, stream orchestration events, and package the application as a Linux ARM64 container. Run the container locally with the Anthropic API before introducing AWS deployment.
+
 ## Common commands
 
 Run these inside an implemented lab:
@@ -112,3 +118,4 @@ Tests are offline. Demo commands that invoke Claude consume Anthropic API credit
 - [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview)
 - [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)
 - [Claude Message Batches](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+- [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)
