@@ -9,7 +9,8 @@ Each lab is self-contained: enter its directory, install its dependencies, and f
 - Node.js 22 or later
 - npm 10 or later
 - An Anthropic API key with API billing enabled for labs that call Claude
-- Docker with Buildx for Lab09's ARM64 container exercise
+- Docker with Buildx for the AgentCore ARM64 container labs
+- AWS CLI v2, Terraform 1.11 or later, and configured AWS credentials for Lab10
 
 A Claude subscription and Anthropic API usage are billed separately. Keep API keys in the root `.env` file and never commit them.
 
@@ -28,6 +29,8 @@ The shared file contains:
 | `ANTHROPIC_API_KEY` | Labs that call Claude |
 | `ANTHROPIC_BASE_URL` | Anthropic SDK and Agent SDK labs |
 | `CLAUDE_MODEL` | Labs that call Claude |
+| `AWS_REGION` | Lab10 AWS resources and remote client |
+| `AGENT_RUNTIME_USER_ID` | Lab10 development identity for remote invocation |
 | `PORT` | Lab05 MCP server |
 | `MCP_SERVER_URL` | Lab06 MCP client |
 
@@ -46,6 +49,9 @@ If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing she
 | [Lab07](./Lab07/README.md) | Coordinate specialist subagents | Implemented |
 | [Lab08](./Lab08/README.md) | Evaluate agent tool choices with Message Batches | Implemented |
 | [Lab09](./Lab09/README.md) | Package a Claude Agent SDK coordinator for AgentCore Runtime | Implemented |
+| [Lab10](./Lab10/README.md) | Deploy the container with Terraform, ECR, IAM, and AgentCore Identity | Implemented |
+| Lab11 | Split the coordinator and specialists across AgentCore runtimes using A2A | Planned |
+| Lab12 | Add CloudWatch AgentCore Observability and AgentCore Evaluations | Planned |
 
 ## Tool taxonomy
 
@@ -98,6 +104,18 @@ Submit labeled support cases through the Message Batches API. Match results by `
 ### Lab09 — AgentCore-compatible container
 
 Wrap Lab07's coordinator with the AgentCore Runtime HTTP contract, stream orchestration events, and package the application as a Linux ARM64 container. Run the container locally with the Anthropic API before introducing AWS deployment.
+
+### Lab10 — Deploy to AgentCore Runtime
+
+Provision ECR, AgentCore Identity, a least-privilege execution role, and AgentCore Runtime in two Terraform stages. Push the Linux ARM64 image, keep the gateway API key out of runtime environment variables, and invoke the deployed runtime through the AWS SDK.
+
+### Lab11 — Multi-runtime orchestration with A2A
+
+Deploy the coordinator and each specialist as separate AgentCore runtimes. Use the Agent2Agent protocol so the coordinator can discover and delegate work to independently deployed specialists.
+
+### Lab12 — Observability and evaluations
+
+Instrument the distributed workflow with CloudWatch AgentCore Observability, then define AgentCore Evaluations that measure specialist selection, evidence quality, and final-answer correctness.
 
 ## Common commands
 

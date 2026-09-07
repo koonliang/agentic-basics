@@ -1,0 +1,9 @@
+services:
+  coordinator:
+    build:
+      context: .
+    platform: linux/arm64
+    env_file:
+      - ../.env
+    ports:
+      - "${LAB10_PORT:-18080}:8080"
