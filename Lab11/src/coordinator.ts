@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 import type { A2ATransport, DiscoveredAgent } from "./transport.js";
+import { createTrace, type TraceSink } from "./trace.js";
 
 export interface GatewayCredential {
   apiKey: string;
@@ -38,14 +39,32 @@ export interface CoordinatorInput {
   prompt: string;
   targets: SpecialistTarget[];
   transport: A2ATransport;
+  onTrace?: TraceSink;
 }
 
 export async function coordinate(input: CoordinatorInput): Promise<string> {
+  const emit = input.onTrace ?? (() => {});
   const agents = await Promise.all(input.targets.map(async (target) => ({
-    agent: await input.transport.discover(target.target),
+    agent: await input.transport.discover(target.target).then((agent) => {
+      emit(createTrace({
+        type: "agent_discovered",
+        source: "coordinator",
+        specialist: target.id,
+        message: `Discovered ${agent.card.name}`,
+      }));
+      return agent;
+    }),
     id: target.id,
   })));
+  emit(createTrace({ type: "routing_started", source: "coordinator", message: "Selecting specialists" }));
   const decision = await input.model.route(input.prompt, agents);
+  emit(createTrace({
+    type: "routing_completed",
+    source: "coordinator",
+    message: decision.delegations.length === 0
+      ? "No specialist selected"
+      : `Selected ${decision.delegations.map(({ id }) => id).join(", ")}`,
+  }));
   if (decision.delegations.length === 0) {
     if (decision.directAnswer) return decision.directAnswer;
     throw new Error("The coordinator selected no specialist and returned no answer.");
@@ -55,7 +74,34 @@ export async function coordinate(input: CoordinatorInput): Promise<string> {
   const settled = await Promise.allSettled(uniqueDelegations.map(async (delegation) => {
     const selected = agents.find((entry) => entry.id === delegation.id);
     if (!selected) throw new Error(`Unknown specialist: ${delegation.id}`);
-    return input.transport.send(selected.agent, delegation.task);
+    const started = Date.now();
+    emit(createTrace({
+      type: "delegation_started",
+      source: "coordinator",
+      specialist: delegation.id,
+      message: `Delegating to ${delegation.id}`,
+    }));
+    try {
+      const result = await input.transport.send(selected.agent, delegation.task, emit);
+      emit(createTrace({
+        type: "delegation_completed",
+        source: "coordinator",
+        specialist: delegation.id,
+        message: `${delegation.id} completed`,
+        durationMs: Date.now() - started,
+      }));
+      return result;
+    } catch (error) {
+      emit(createTrace({
+        type: "error",
+        source: "coordinator",
+        specialist: delegation.id,
+        isError: true,
+        message: `${delegation.id} failed: ${errorMessage(error)}`,
+        durationMs: Date.now() - started,
+      }));
+      throw error;
+    }
   }));
 
   const results = settled.map((result, index): SpecialistResult => {
@@ -66,7 +112,16 @@ export async function coordinate(input: CoordinatorInput): Promise<string> {
       : { id: delegation.id, result: errorMessage(result.reason), success: false };
   });
 
-  return input.model.synthesize(input.prompt, results);
+  const synthesisStarted = Date.now();
+  emit(createTrace({ type: "synthesis_started", source: "coordinator", message: "Synthesizing specialist evidence" }));
+  const answer = await input.model.synthesize(input.prompt, results);
+  emit(createTrace({
+    type: "synthesis_completed",
+    source: "coordinator",
+    message: "Synthesis completed",
+    durationMs: Date.now() - synthesisStarted,
+  }));
+  return answer;
 }
 
 export function createClaudeCoordinatorModel(

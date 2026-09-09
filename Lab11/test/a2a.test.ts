@@ -8,6 +8,7 @@ test("builds a discoverable card with v1 and AgentCore-compatible interfaces", (
   assert.equal(card.skills[0]?.id, "verify-order");
   assert.deepEqual(card.supportedInterfaces.map((item) => item.protocolVersion), ["1.0", "0.3"]);
   assert.equal(card.supportedInterfaces[0]?.url, "http://localhost:9000/");
+  assert.equal(card.capabilities?.streaming, true);
 });
 
 test("creates and reads text messages", () => {

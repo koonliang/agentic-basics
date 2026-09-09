@@ -37,11 +37,11 @@ Every role serves:
 
 | Endpoint | Purpose |
 | --- | --- |
-| `GET /ping` | AgentCore health check returning `{ "status": "Healthy" }` |
+| `GET /ping` | AgentCore health check returning `Healthy` or `HealthyBusy` |
 | `GET /.well-known/agent-card.json` | Agent identity, skills, and JSON-RPC interface |
-| `POST /` | A2A JSON-RPC messages |
+| `POST /` | Synchronous and streaming A2A JSON-RPC messages |
 
-AgentCore requires A2A containers to bind `0.0.0.0:9000`. The application uses the current A2A v1 SDK and enables its v0.3 compatibility adapter because AgentCore SDK invocations are headerless and AWS's documented wire request uses `message/send`.
+AgentCore requires A2A containers to bind `0.0.0.0:9000`. The application uses the current A2A v1 SDK and enables its v0.3 compatibility adapter. It preserves synchronous `message/send` calls and uses `message/stream` for live orchestration progress.
 
 ## Prerequisites
 
@@ -99,7 +99,24 @@ npm run demo:local -- \
   "Investigate cases/case-001.md using both specialists."
 ```
 
-The client first prints the coordinator skill it discovered. The coordinator then discovers the two specialist cards, lets Claude select the tools, runs both A2A calls concurrently, and prints the synthesized answer.
+The client first prints the coordinator skill it discovered. The coordinator then discovers the two specialist cards, lets Claude select the tools, runs both A2A calls concurrently, and streams progress such as:
+
+```text
+[coordinator] Discovered Order Investigator
+[coordinator] Discovered Refund Policy Specialist
+[coordinator] Selecting specialists
+[coordinator] Selected order-investigator, policy-specialist
+[coordinator] Delegating to order-investigator
+[coordinator] Delegating to policy-specialist
+[order-investigator] Read orders.json
+[policy-specialist] Read policies/refunds.md
+[order-investigator] Read completed
+[coordinator] order-investigator completed (1234 ms)
+[coordinator] Synthesizing specialist evidence
+[coordinator] Synthesis completed (567 ms)
+```
+
+These are observable execution events, not Claude's private chain-of-thought. Tool results report success or failure without printing file contents or intermediate answers.
 
 Stop the local stack with `docker compose down`.
 
@@ -175,7 +192,7 @@ npm run demo -- \
   "Investigate cases/case-001.md using both specialists."
 ```
 
-The client uses the normal AWS credential chain. It retrieves the coordinator Agent Card, reuses that session for the A2A message, and prints the final text response.
+The client uses the normal AWS credential chain. It retrieves the coordinator Agent Card, reuses that session for the streaming A2A message, prints progress as it arrives, and then prints the final text response.
 
 The invoking principal needs these actions on the coordinator ARN:
 
@@ -202,7 +219,10 @@ AgentCore authorizes qualified calls against the endpoint ARN. The coordinator e
 - The order and policy runtimes are separate AgentCore resources and sessions.
 - Selected specialist requests start together; cold starts and external model latency can still make the complete run slow.
 - A failed specialist is returned to the synthesis step as failed evidence rather than hiding the other specialist's result.
-- The application logs from each runtime appear under its own AgentCore CloudWatch log group.
+- Each originating runtime writes the same trace as structured JSON to stdout, which appears in that runtime's AgentCore CloudWatch log group.
+- `/ping` reports `HealthyBusy` while a request is active so long-running work is not treated as idle.
+
+Lab11 intentionally stops at learner-facing progress and ordinary runtime logs. Lab12 adds CloudWatch AgentCore Observability, correlated distributed spans, metrics, and evaluations.
 
 ## Verification
 

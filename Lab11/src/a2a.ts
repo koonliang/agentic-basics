@@ -1,8 +1,19 @@
 import { randomUUID } from "node:crypto";
 
-import { Role, type AgentCard, type AgentSkill, type Message, type Part, type Task } from "@a2a-js/sdk";
+import {
+  Role,
+  TaskState,
+  type AgentCard,
+  type AgentSkill,
+  type Message,
+  type Part,
+  type Task,
+  type TaskArtifactUpdateEvent,
+  type TaskStatusUpdateEvent,
+} from "@a2a-js/sdk";
 
 import type { AgentRole } from "./config.js";
+import type { TraceEvent } from "./trace.js";
 
 const roleDetails: Record<AgentRole, {
   name: string;
@@ -54,7 +65,7 @@ export function createAgentCard(role: AgentRole, publicUrl: string): AgentCard {
     ],
     provider: undefined,
     version: "1.0.0",
-    capabilities: { streaming: false, pushNotifications: false, extensions: [] },
+    capabilities: { streaming: true, pushNotifications: false, extensions: [] },
     securitySchemes: {},
     securityRequirements: [],
     defaultInputModes: ["text/plain"],
@@ -77,16 +88,84 @@ export function createUserMessage(text: string): Message {
   };
 }
 
-export function createAgentMessage(text: string, contextId: string): Message {
+export function createAgentMessage(text: string, contextId: string, taskId = ""): Message {
   return {
     messageId: randomUUID(),
     contextId,
-    taskId: "",
+    taskId,
     role: Role.ROLE_AGENT,
     parts: [textPart(text)],
     metadata: undefined,
     extensions: [],
     referenceTaskIds: [],
+  };
+}
+
+export function createWorkingTask(taskId: string, contextId: string): Task {
+  return {
+    id: taskId,
+    contextId,
+    status: { state: TaskState.TASK_STATE_WORKING, message: undefined, timestamp: new Date().toISOString() },
+    artifacts: [],
+    history: [],
+    metadata: undefined,
+  };
+}
+
+export function createTraceStatus(
+  taskId: string,
+  contextId: string,
+  trace: TraceEvent,
+): TaskStatusUpdateEvent {
+  return {
+    taskId,
+    contextId,
+    status: {
+      state: TaskState.TASK_STATE_WORKING,
+      message: createAgentMessage(trace.message, contextId, taskId),
+      timestamp: trace.timestamp,
+    },
+    metadata: { trace },
+  };
+}
+
+export function createFinalArtifact(
+  taskId: string,
+  contextId: string,
+  text: string,
+): TaskArtifactUpdateEvent {
+  return {
+    taskId,
+    contextId,
+    artifact: {
+      artifactId: randomUUID(),
+      name: "investigation",
+      description: "Final investigation response",
+      parts: [textPart(text)],
+      metadata: undefined,
+      extensions: [],
+    },
+    append: false,
+    lastChunk: true,
+    metadata: undefined,
+  };
+}
+
+export function createTerminalStatus(
+  taskId: string,
+  contextId: string,
+  state: TaskState.TASK_STATE_COMPLETED | TaskState.TASK_STATE_FAILED,
+  message?: string,
+): TaskStatusUpdateEvent {
+  return {
+    taskId,
+    contextId,
+    status: {
+      state,
+      message: message ? createAgentMessage(message, contextId, taskId) : undefined,
+      timestamp: new Date().toISOString(),
+    },
+    metadata: undefined,
   };
 }
 

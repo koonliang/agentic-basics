@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
+import { Readable } from "node:stream";
 import test from "node:test";
+
+import type { BedrockAgentCoreClient } from "@aws-sdk/client-bedrock-agentcore";
 
 import {
   createAgentCardInput,
   createAgentCoreInvocationInput,
+  createA2ATransport,
   withConflictRetry,
   type DiscoveredAgent,
 } from "../src/transport.js";
@@ -31,6 +35,39 @@ test("builds AgentCore discovery and invocation inputs with one session", () => 
   const payload = JSON.parse(Buffer.from(input.payload as Uint8Array).toString("utf8"));
   assert.equal(payload.method, "message/send");
   assert.equal(payload.params.message.parts[0].text, "investigate");
+});
+
+test("streams AgentCore traces and returns only the final artifact", async () => {
+  const trace = {
+    type: "tool_use",
+    source: "order-investigator",
+    message: "Read orders.json",
+    timestamp: "2026-09-09T00:00:00.000Z",
+    tool: "Read",
+  };
+  const frames = [
+    `data: ${JSON.stringify({ jsonrpc: "2.0", id: "1", result: { kind: "status-update", metadata: { trace } } })}\n\n`,
+    `data: ${JSON.stringify({ jsonrpc: "2.0", id: "1", result: { kind: "artifact-update", artifact: { parts: [{ kind: "text", text: "verified order" }] } } })}\n\n`,
+  ].join("");
+  let invocationInput: Record<string, unknown> | undefined;
+  const client = {
+    async send(command: unknown) {
+      invocationInput = (command as { input: Record<string, unknown> }).input;
+      return { response: Readable.from([frames.slice(0, 47), frames.slice(47)]) };
+    },
+  } as unknown as BedrockAgentCoreClient;
+  const transport = createA2ATransport({
+    agentCoreClient: client,
+    region: "ap-southeast-1",
+    runtimeUserId: "demo-user",
+  });
+  const traces: unknown[] = [];
+
+  assert.equal(await transport.send(agent, "investigate", (event) => traces.push(event)), "verified order");
+  assert.deepEqual(traces, [trace]);
+  assert.equal(invocationInput?.accept, "text/event-stream");
+  const payload = JSON.parse(Buffer.from(invocationInput?.payload as Uint8Array).toString("utf8"));
+  assert.equal(payload.method, "message/stream");
 });
 
 test("retries retryable conflicts with exponential delays", async () => {

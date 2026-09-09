@@ -2,6 +2,7 @@ import { query, type Options } from "@anthropic-ai/claude-agent-sdk";
 
 import type { GatewayCredential } from "./coordinator.js";
 import type { AgentRole } from "./config.js";
+import { createTrace, type TraceSink } from "./trace.js";
 
 const readOnlyTools = ["Read", "Glob", "Grep"];
 
@@ -42,11 +43,35 @@ export async function runSpecialist(
   cwd: string,
   model: string,
   gateway: GatewayCredential,
+  onTrace: TraceSink = () => {},
 ): Promise<string> {
+  const tools = new Map<string, string>();
   for await (const message of query({
     prompt,
     options: createSpecialistOptions(role, cwd, model, gateway),
   })) {
+    for (const block of messageBlocks(message)) {
+      if (block.type === "tool_use" && typeof block.name === "string" && typeof block.id === "string") {
+        tools.set(block.id, block.name);
+        const target = safeToolTarget(block.input, cwd);
+        onTrace(createTrace({
+          type: "tool_use",
+          source: role,
+          tool: block.name,
+          message: `${block.name}${target ? ` ${target}` : ""}`,
+        }));
+      }
+      if (block.type === "tool_result" && typeof block.tool_use_id === "string") {
+        const tool = tools.get(block.tool_use_id) || "Tool";
+        onTrace(createTrace({
+          type: "tool_result",
+          source: role,
+          tool,
+          isError: block.is_error === true,
+          message: `${tool} ${block.is_error === true ? "failed" : "completed"}`,
+        }));
+      }
+    }
     if (message.type !== "result") continue;
     if (message.subtype === "success" && typeof message.result === "string" && !message.is_error) {
       return message.result;
@@ -57,4 +82,22 @@ export async function runSpecialist(
     throw new Error(errors.join("\n") || `${role} failed.`);
   }
   throw new Error(`${role} completed without a result.`);
+}
+
+function messageBlocks(message: unknown): Record<string, unknown>[] {
+  if (!isRecord(message) || !isRecord(message.message) || !Array.isArray(message.message.content)) return [];
+  return message.message.content.filter(isRecord);
+}
+
+function safeToolTarget(input: unknown, cwd: string): string | undefined {
+  if (!isRecord(input)) return undefined;
+  const value = typeof input.file_path === "string"
+    ? input.file_path
+    : typeof input.pattern === "string" ? input.pattern : undefined;
+  if (!value) return undefined;
+  return value.startsWith(`${cwd}/`) ? value.slice(cwd.length + 1) : value;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }

@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { coordinate, type CoordinatorModel, type SpecialistTarget } from "../src/coordinator.js";
 import type { A2ATransport, DiscoveredAgent } from "../src/transport.js";
+import type { TraceEvent } from "../src/trace.js";
 
 const targets: SpecialistTarget[] = [
   { id: "order-investigator", target: "http://order" },
@@ -10,6 +11,7 @@ const targets: SpecialistTarget[] = [
 ];
 
 test("runs selected specialists concurrently and synthesizes their results", async () => {
+  const traces: TraceEvent[] = [];
   let started = 0;
   let release: (() => void) | undefined;
   const gate = new Promise<void>((resolve) => { release = resolve; });
@@ -30,7 +32,11 @@ test("runs selected specialists concurrently and synthesizes their results", asy
     },
   };
 
-  assert.equal(await coordinate({ model, prompt: "case", targets, transport }), "final answer");
+  assert.equal(await coordinate({ model, prompt: "case", targets, transport, onTrace: (event) => traces.push(event) }), "final answer");
+  const types = traces.map(({ type }) => type);
+  assert.equal(types.filter((type) => type === "delegation_started").length, 2);
+  assert.ok(types.indexOf("delegation_started") < types.indexOf("delegation_completed"));
+  assert.equal(types.at(-1), "synthesis_completed");
 });
 
 test("passes a specialist failure to synthesis", async () => {

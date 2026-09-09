@@ -6,6 +6,7 @@ import {
   DefaultAgentCardResolver,
   JsonRpcTransportFactory,
 } from "@a2a-js/sdk/client";
+import { TaskState } from "@a2a-js/sdk";
 import {
   BedrockAgentCoreClient,
   GetAgentCardCommand,
@@ -15,6 +16,7 @@ import {
 } from "@aws-sdk/client-bedrock-agentcore";
 
 import { createUserMessage, textFromResult, textFromUnknownResult } from "./a2a.js";
+import { tracesFromUnknown, type TraceSink } from "./trace.js";
 
 export interface AgentCardInfo {
   description: string;
@@ -30,7 +32,7 @@ export interface DiscoveredAgent {
 
 export interface A2ATransport {
   discover(target: string): Promise<DiscoveredAgent>;
-  send(agent: DiscoveredAgent, text: string): Promise<string>;
+  send(agent: DiscoveredAgent, text: string, onTrace?: TraceSink): Promise<string>;
 }
 
 export interface TransportOptions {
@@ -59,18 +61,13 @@ export function createA2ATransport(options: TransportOptions): A2ATransport {
       return { card: cardInfo(card), sessionId: randomUUID(), target };
     },
 
-    async send(agent, text) {
+    async send(agent, text, onTrace = () => {}) {
       if (isAgentCoreArn(agent.target)) {
         const response = await withConflictRetry(() => awsClient.send(new InvokeAgentRuntimeCommand(
-          createAgentCoreInvocationInput(agent, text, options.runtimeUserId),
+          createAgentCoreInvocationInput(agent, text, options.runtimeUserId, true),
         )));
         if (!response.response) throw new Error(`AgentCore returned no response for ${agent.card.name}.`);
-        const body = JSON.parse(await response.response.transformToString()) as unknown;
-        if (isRecord(body) && isRecord(body.error)) {
-          throw new Error(String(body.error.message || "A2A invocation failed."));
-        }
-        if (!isRecord(body) || !("result" in body)) throw new Error("Invalid A2A JSON-RPC response.");
-        return textFromUnknownResult(body.result);
+        return consumeAgentCoreStream(response.response, onTrace);
       }
 
       const factory = new ClientFactory(ClientFactoryOptions.createFrom(ClientFactoryOptions.default, {
@@ -78,13 +75,30 @@ export function createA2ATransport(options: TransportOptions): A2ATransport {
         transports: [new JsonRpcTransportFactory({ fetchImpl })],
       }));
       const client = await factory.createFromUrl(agent.target);
-      const result = await client.sendMessage({
+      const stream = client.sendMessageStream({
         tenant: "",
         message: createUserMessage(text),
         configuration: undefined,
         metadata: undefined,
       });
-      return textFromResult(result);
+      let finalText: string | undefined;
+      let failure: string | undefined;
+      for await (const event of stream) {
+        for (const trace of tracesFromUnknown(event)) {
+          onTrace(trace);
+          if (trace.isError) failure = trace.message;
+        }
+        const payload = event.payload;
+        if (payload?.$case === "artifactUpdate" && payload.value.artifact) {
+          finalText = textFromUnknownResult(payload.value.artifact);
+        }
+        if (payload?.$case === "message") finalText = textFromResult(payload.value);
+        if (payload?.$case === "task" && payload.value.status?.state === TaskState.TASK_STATE_COMPLETED) {
+          finalText = textFromResult(payload.value);
+        }
+      }
+      if (!finalText) throw new Error(failure || `A2A agent ${agent.card.name} returned no final text.`);
+      return finalText;
     },
   };
 }
@@ -104,12 +118,13 @@ export function createAgentCoreInvocationInput(
   agent: DiscoveredAgent,
   text: string,
   runtimeUserId: string,
+  streaming = false,
 ): InvokeAgentRuntimeCommandInput {
   return {
-    accept: "application/json",
+    accept: streaming ? "text/event-stream" : "application/json",
     agentRuntimeArn: agent.target,
     contentType: "application/json",
-    payload: Buffer.from(JSON.stringify(createLegacyRequest(text))),
+    payload: Buffer.from(JSON.stringify(createLegacyRequest(text, streaming))),
     qualifier: "DEFAULT",
     runtimeSessionId: agent.sessionId,
     runtimeUserId,
@@ -131,11 +146,11 @@ export async function withConflictRetry<T>(
   throw new Error("Unreachable retry state.");
 }
 
-function createLegacyRequest(text: string): unknown {
+function createLegacyRequest(text: string, streaming = false): unknown {
   return {
     jsonrpc: "2.0",
     id: randomUUID(),
-    method: "message/send",
+    method: streaming ? "message/stream" : "message/send",
     params: {
       message: {
         kind: "message",
@@ -145,6 +160,80 @@ function createLegacyRequest(text: string): unknown {
       },
     },
   };
+}
+
+async function consumeAgentCoreStream(body: unknown, onTrace: TraceSink): Promise<string> {
+  let finalText: string | undefined;
+  let failure: string | undefined;
+  for await (const value of parseResponseValues(body)) {
+    if (isRecord(value) && isRecord(value.error)) {
+      throw new Error(String(value.error.message || "A2A invocation failed."));
+    }
+    for (const trace of tracesFromUnknown(value)) {
+      onTrace(trace);
+      if (trace.isError) failure = trace.message;
+    }
+    const result = isRecord(value) && "result" in value ? value.result : value;
+    const text = finalTextFromUnknown(result);
+    if (text) finalText = text;
+  }
+  if (!finalText) throw new Error(failure || "AgentCore returned no final A2A text.");
+  return finalText;
+}
+
+async function* parseResponseValues(body: unknown): AsyncGenerator<unknown> {
+  let content = "";
+  const decoder = new TextDecoder();
+  if (isAsyncIterable(body)) {
+    for await (const chunk of body) {
+      content += typeof chunk === "string" ? chunk : decoder.decode(chunk, { stream: true });
+      const parsed = drainSse(content);
+      content = parsed.remainder;
+      for (const value of parsed.values) yield value;
+    }
+    content += decoder.decode();
+  } else if (isRecord(body) && typeof body.transformToString === "function") {
+    content = await (body.transformToString as () => Promise<string>)();
+  } else {
+    throw new Error("AgentCore returned an unsupported response stream.");
+  }
+
+  const parsed = drainSse(`${content}\n\n`);
+  for (const value of parsed.values) yield value;
+  if (parsed.values.length === 0 && content.trim()) yield JSON.parse(content);
+}
+
+function drainSse(content: string): { remainder: string; values: unknown[] } {
+  const normalized = content.replaceAll("\r\n", "\n");
+  const blocks = normalized.split("\n\n");
+  const remainder = blocks.pop() || "";
+  const values = blocks.flatMap((block): unknown[] => {
+    const data = block.split("\n")
+      .filter((line) => line.startsWith("data:"))
+      .map((line) => line.slice(5).trimStart())
+      .join("\n");
+    if (!data || data === "[DONE]") return [];
+    return [JSON.parse(data)];
+  });
+  return { remainder, values };
+}
+
+function finalTextFromUnknown(value: unknown): string | undefined {
+  if (!isRecord(value)) return undefined;
+  const artifact = isRecord(value.artifact) ? value.artifact : undefined;
+  if (artifact) return textFromUnknownResult(artifact);
+  if (Array.isArray(value.artifacts) && value.artifacts.length > 0) {
+    return textFromUnknownResult({ artifacts: value.artifacts });
+  }
+  for (const key of ["payload", "value"]) {
+    const text = finalTextFromUnknown(value[key]);
+    if (text) return text;
+  }
+  return undefined;
+}
+
+function isAsyncIterable(value: unknown): value is AsyncIterable<Uint8Array | string> {
+  return typeof value === "object" && value !== null && Symbol.asyncIterator in value;
 }
 
 function cardInfo(value: unknown): AgentCardInfo {

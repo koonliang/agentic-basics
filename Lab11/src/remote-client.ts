@@ -1,4 +1,5 @@
 import { createA2ATransport } from "./transport.js";
+import { formatTrace } from "./trace.js";
 
 const target = process.env.AGENT_RUNTIME_ARN?.trim();
 if (!target) throw new Error("AGENT_RUNTIME_ARN is required.");
@@ -11,4 +12,5 @@ const transport = createA2ATransport({
 const coordinator = await transport.discover(target);
 
 console.log(`Discovered ${coordinator.card.name}: ${coordinator.card.skills.map((skill) => skill.name).join(", ")}`);
-console.log(await transport.send(coordinator, prompt));
+const answer = await transport.send(coordinator, prompt, (trace) => console.log(formatTrace(trace)));
+console.log(`\n${answer}`);
