@@ -10,7 +10,7 @@ Each lab is self-contained: enter its directory, install its dependencies, and f
 - npm 10 or later
 - An Anthropic API key with API billing enabled for labs that call Claude
 - Docker with Buildx for the AgentCore ARM64 container labs
-- AWS CLI v2, Terraform 1.11 or later, and configured AWS credentials for Lab10
+- AWS CLI v2, Terraform 1.11 or later, and configured AWS credentials for Lab10 and Lab11
 
 A Claude subscription and Anthropic API usage are billed separately. Keep API keys in the root `.env` file and never commit them.
 
@@ -29,8 +29,9 @@ The shared file contains:
 | `ANTHROPIC_API_KEY` | Labs that call Claude |
 | `ANTHROPIC_BASE_URL` | Anthropic SDK and Agent SDK labs |
 | `CLAUDE_MODEL` | Labs that call Claude |
-| `AWS_REGION` | Lab10 AWS resources and remote client |
-| `AGENT_RUNTIME_USER_ID` | Lab10 development identity for remote invocation |
+| `GATEWAY_API_KEY_VERSION` | Lab10 and Lab11 AgentCore Identity credential rotation |
+| `AWS_REGION` | Lab10 and Lab11 AWS resources and remote clients |
+| `AGENT_RUNTIME_USER_ID` | Lab10 and Lab11 development identity for remote invocation |
 | `PORT` | Lab05 MCP server |
 | `MCP_SERVER_URL` | Lab06 MCP client |
 
@@ -50,7 +51,7 @@ If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing she
 | [Lab08](./Lab08/README.md) | Evaluate agent tool choices with Message Batches | Implemented |
 | [Lab09](./Lab09/README.md) | Package a Claude Agent SDK coordinator for AgentCore Runtime | Implemented |
 | [Lab10](./Lab10/README.md) | Deploy the container with Terraform, ECR, IAM, and AgentCore Identity | Implemented |
-| Lab11 | Split the coordinator and specialists across AgentCore runtimes using A2A | Planned |
+| [Lab11](./Lab11/README.md) | Split the coordinator and specialists across AgentCore runtimes using A2A | Implemented |
 | Lab12 | Add CloudWatch AgentCore Observability and AgentCore Evaluations | Planned |
 
 ## Tool taxonomy

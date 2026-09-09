@@ -1,0 +1,57 @@
+services:
+  order-investigator:
+    image: agentic-ai-lab11:local
+    platform: linux/arm64
+    env_file:
+      - ../.env
+    environment:
+      AGENT_PUBLIC_URL: http://order-investigator:9000/
+      AGENT_ROLE: order-investigator
+    ports:
+      - "19001:9000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:9000/ping').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  policy-specialist:
+    image: agentic-ai-lab11:local
+    platform: linux/arm64
+    env_file:
+      - ../.env
+    environment:
+      AGENT_PUBLIC_URL: http://policy-specialist:9000/
+      AGENT_ROLE: policy-specialist
+    ports:
+      - "19002:9000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:9000/ping').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  coordinator:
+    image: agentic-ai-lab11:local
+    build:
+      context: .
+    platform: linux/arm64
+    env_file:
+      - ../.env
+    environment:
+      AGENT_PUBLIC_URL: http://127.0.0.1:19000/
+      AGENT_ROLE: coordinator
+      ORDER_AGENT_TARGET: http://order-investigator:9000/
+      POLICY_AGENT_TARGET: http://policy-specialist:9000/
+    ports:
+      - "19000:9000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:9000/ping').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    depends_on:
+      order-investigator:
+        condition: service_healthy
+      policy-specialist:
+        condition: service_healthy

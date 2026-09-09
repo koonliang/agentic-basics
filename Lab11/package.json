@@ -1,0 +1,33 @@
+{
+  "name": "agentic-ai-lab11",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "node --env-file-if-exists=../.env --import tsx src/remote-client.ts",
+    "demo:local": "node --env-file-if-exists=../.env --import tsx src/local-client.ts",
+    "server": "node --env-file-if-exists=../.env --import tsx src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "image:push": "bash scripts/push-image.sh",
+    "runtime:secure": "bash scripts/enable-mmdsv2.sh"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "1.1.0",
+    "@anthropic-ai/claude-agent-sdk": "latest",
+    "@anthropic-ai/sdk": "latest",
+    "@aws-sdk/client-bedrock-agentcore": "latest",
+    "bedrock-agentcore": "latest",
+    "express": "latest"
+  },
+  "devDependencies": {
+    "@types/express": "latest",
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
