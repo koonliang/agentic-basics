@@ -1,0 +1,5 @@
+aws_region              = "ap-southeast-1"
+name_prefix             = "agentic-basics-lab12"
+gateway_api_key_version = 1
+
+# Do not put gateway_api_key in this file. Use TF_VAR_gateway_api_key.

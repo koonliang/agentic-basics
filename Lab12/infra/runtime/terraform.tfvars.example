@@ -1,0 +1,8 @@
+aws_region            = "ap-southeast-1"
+runtime_name_prefix   = "agentic_basics_lab12"
+image_tag             = "v1"
+anthropic_base_url    = "https://api.anthropic.com"
+claude_model          = "claude-haiku-4-5"
+agent_runtime_user_id = "lab12-demo-user"
+online_evaluation_enabled             = true
+online_evaluation_sampling_percentage = 100

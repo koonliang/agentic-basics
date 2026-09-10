@@ -1,0 +1,46 @@
+{
+  "name": "agentic-ai-lab12",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "node --env-file-if-exists=../.env --import tsx src/remote-client.ts",
+    "demo:local": "node --env-file-if-exists=../.env --import tsx src/local-client.ts",
+    "eval:ondemand": "node --env-file-if-exists=../.env --import tsx src/evaluate-ondemand.ts",
+    "server": "node --env-file-if-exists=../.env --import tsx src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "image:push": "bash scripts/push-image.sh",
+    "runtime:secure": "bash scripts/enable-mmdsv2.sh"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "1.1.0",
+    "@anthropic-ai/claude-agent-sdk": "latest",
+    "@anthropic-ai/sdk": "latest",
+    "@arizeai/openinference-instrumentation-anthropic": "^0.2.4",
+    "@arizeai/openinference-instrumentation-claude-agent-sdk": "^0.2.18",
+    "@aws-sdk/client-bedrock-agentcore": "latest",
+    "@aws-sdk/client-cloudwatch-logs": "^3.1129.0",
+    "@aws/aws-distro-opentelemetry-node-autoinstrumentation": "^0.12.0",
+    "@opentelemetry/api": "^1.9.1",
+    "bedrock-agentcore": "latest",
+    "express": "latest"
+  },
+  "devDependencies": {
+    "@opentelemetry/context-async-hooks": "^2.11.0",
+    "@opentelemetry/core": "^2.11.0",
+    "@opentelemetry/sdk-metrics": "^2.11.0",
+    "@opentelemetry/sdk-trace-base": "^2.11.0",
+    "@types/express": "latest",
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "overrides": {
+    "@opentelemetry/propagator-jaeger": "^2.11.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

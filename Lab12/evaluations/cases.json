@@ -1,0 +1,23 @@
+[
+  {
+    "id": "damaged-delivery-refund",
+    "prompt": "Investigate cases/case-001.md using both specialists.",
+    "expectedResponse": "Order A1002 belongs to Ben, was delivered on 2026-08-29, and the damage was reported on 2026-08-31. A delivered order reported damaged within 30 days qualifies for a full refund, so recommend a full refund. Cite workspace evidence and do not invent facts.",
+    "expectedTools": ["delegate_order_investigator", "delegate_policy_specialist"],
+    "trajectoryEvaluator": "Builtin.TrajectoryAnyOrderMatch"
+  },
+  {
+    "id": "order-status-only",
+    "prompt": "Use only the order investigator to verify the current status and estimated delivery for order A1001 in orders.json.",
+    "expectedResponse": "Order A1001 belongs to Aisha, is in transit, and has an estimated delivery date of 2026-09-02. Do not make a policy recommendation.",
+    "expectedTools": ["delegate_order_investigator"],
+    "trajectoryEvaluator": "Builtin.TrajectoryExactOrderMatch"
+  },
+  {
+    "id": "policy-only",
+    "prompt": "Use only the policy specialist to explain the damaged-delivery refund rule in policies/refunds.md.",
+    "expectedResponse": "A delivered order that arrived damaged qualifies for a full refund when the damage is reported within 30 days of delivery. Support must confirm the order record and case notes before recommending the refund.",
+    "expectedTools": ["delegate_policy_specialist"],
+    "trajectoryEvaluator": "Builtin.TrajectoryExactOrderMatch"
+  }
+]
