@@ -1,0 +1,26 @@
+{
+  "name": "agentic-ai-lab13",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ingest": "node --env-file-if-exists=../.env --import tsx src/ingest.ts",
+    "retrieve": "node --env-file-if-exists=../.env --import tsx src/retrieve.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agent": "latest",
+    "@aws-sdk/client-bedrock-agent-runtime": "latest",
+    "@aws-sdk/client-s3": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

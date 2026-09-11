@@ -10,7 +10,7 @@ Each lab is self-contained: enter its directory, install its dependencies, and f
 - npm 10 or later
 - An Anthropic API key with API billing enabled for labs that call Claude
 - Docker with Buildx for the AgentCore ARM64 container labs
-- AWS CLI v2, Terraform 1.11 or later, and configured AWS credentials for Lab10 through Lab12
+- AWS CLI v2, Terraform 1.11 or later, and configured AWS credentials for Lab10 through Lab16
 
 A Claude subscription and Anthropic API usage are billed separately. Keep API keys in the root `.env` file and never commit them.
 
@@ -30,7 +30,7 @@ The shared file contains:
 | `ANTHROPIC_BASE_URL` | Anthropic SDK and Agent SDK labs |
 | `CLAUDE_MODEL` | Labs that call Claude |
 | `GATEWAY_API_KEY_VERSION` | Lab10 through Lab12 AgentCore Identity credential rotation |
-| `AWS_REGION` | Lab10 through Lab12 AWS resources and remote clients |
+| `AWS_REGION` | Lab10 through Lab16 AWS resources and remote clients |
 | `AGENT_RUNTIME_USER_ID` | Lab10 through Lab12 development identity for remote invocation |
 | `PORT` | Lab05 MCP server |
 | `MCP_SERVER_URL` | Lab06 MCP client |
@@ -53,6 +53,10 @@ If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing she
 | [Lab10](./Lab10/README.md) | Deploy the container with Terraform, ECR, IAM, and AgentCore Identity | Implemented |
 | [Lab11](./Lab11/README.md) | Split the coordinator and specialists across AgentCore runtimes using A2A | Implemented |
 | [Lab12](./Lab12/README.md) | Add CloudWatch AgentCore Observability and AgentCore Evaluations | Implemented |
+| [Lab13](./Lab13/README.md) | Ingest policy PDFs into Bedrock Knowledge Bases and inspect semantic retrieval | Implemented |
+| Lab14 | Compare ungrounded answers with retrieved, cited evidence | Planned |
+| Lab15 | Add metadata filters and evaluate version-aware retrieval | Planned |
+| Lab16 | Parse diagrams and tables for multimodal RAG | Planned |
 
 ## Tool taxonomy
 
@@ -118,6 +122,22 @@ Deploy the coordinator and each specialist as separate AgentCore runtimes. Use t
 
 Instrument the distributed workflow with CloudWatch AgentCore Observability, then define AgentCore Evaluations that measure specialist selection, evidence quality, and final-answer correctness.
 
+### Lab13 — Knowledge Base ingestion and retrieval
+
+Upload current policy PDFs to Amazon S3, ingest their selectable text into Amazon Bedrock Knowledge Bases, store embeddings in S3 Vectors, and inspect retrieved chunks, scores, metadata, and source locations. Use an image-only policy fact as a deliberate negative control for the default parser.
+
+### Lab14 — Grounded answers and citations
+
+Compare a direct Claude response with a manual RAG pipeline that supplies retrieved evidence to Claude. Require answers to cite their source PDFs and abstain when the retrieved context is insufficient.
+
+### Lab15 — Version-aware retrieval
+
+Add the superseded policy and document metadata, then filter retrieval by region, status, and effective date. Run regression cases that show how unfiltered retrieval can surface obsolete policy.
+
+### Lab16 — Multimodal PDF RAG
+
+Use a Bedrock foundation-model parser to extract diagrams and image-only tables. Compare native and image-rendered table retrieval, then measure grounded-answer accuracy against the synthetic fixture answers.
+
 ## Common commands
 
 Run these inside an implemented lab:
@@ -138,3 +158,5 @@ Tests are offline. Demo commands that invoke Claude consume Anthropic API credit
 - [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)
 - [Claude Message Batches](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 - [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)
+- [Amazon Bedrock Knowledge Bases](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html)
+- [Amazon S3 Vectors](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors.html)
