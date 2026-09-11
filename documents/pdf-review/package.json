@@ -1,0 +1,12 @@
+{
+  "name": "agentic-basics-pdf-review",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.mjs"
+  },
+  "dependencies": {
+    "pdf-lib": "1.17.1",
+    "sharp": "0.35.4"
+  }
+}

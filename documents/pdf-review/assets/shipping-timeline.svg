@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+    <rect width="1040" height="620" rx="24" fill="#FFFFFF"/>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #243142; }
+      .title { font-size: 29px; font-weight: 700; letter-spacing: 1px; }
+      .subtitle { font-size: 17px; fill: #667386; }
+      .label { font-size: 20px; font-weight: 700; }
+      .detail { font-size: 16px; }
+      .tiny { font-size: 14px; font-weight: 700; }
+    </style>
+      <rect x="0" y="0" width="1040" height="92" rx="24" fill="#183153"/>
+    <text x="42" y="42" class="title" fill="#FFFFFF" style="fill:#FFFFFF">DELIVERY INVESTIGATION TIMELINE</text>
+    <text x="42" y="70" class="subtitle" fill="#FFFFFF" style="fill:#FFFFFF;opacity:.82">Elapsed time is measured after the estimated delivery date</text>
+      <text x="95" y="167" class="label" style="fill:#2E6FD8">DOMESTIC</text>
+    <line x1="210" y1="205" x2="830" y2="205" stroke="#2E6FD8" stroke-width="8"/><circle cx="210" cy="205" r="16" fill="#FFFFFF" stroke="#2E6FD8" stroke-width="7"/>
+      <text x="210" y="247" text-anchor="middle" class="tiny" style="fill:#2E6FD8">ETA</text>
+      <text x="210" y="275" text-anchor="middle" class="detail">Monitor</text><circle cx="520" cy="205" r="16" fill="#FFFFFF" stroke="#2E6FD8" stroke-width="7"/>
+      <text x="520" y="247" text-anchor="middle" class="tiny" style="fill:#2E6FD8">+2 business days</text>
+      <text x="520" y="275" text-anchor="middle" class="detail">Open carrier case</text><circle cx="830" cy="205" r="16" fill="#FFFFFF" stroke="#2E6FD8" stroke-width="7"/>
+      <text x="830" y="247" text-anchor="middle" class="tiny" style="fill:#2E6FD8">+7 business days</text>
+      <text x="830" y="275" text-anchor="middle" class="detail">Escalate as potentially lost</text>
+      <text x="95" y="347" class="label" style="fill:#B96B16">INTERNATIONAL</text>
+    <line x1="210" y1="385" x2="830" y2="385" stroke="#B96B16" stroke-width="8"/><circle cx="210" cy="385" r="16" fill="#FFFFFF" stroke="#B96B16" stroke-width="7"/>
+      <text x="210" y="427" text-anchor="middle" class="tiny" style="fill:#B96B16">ETA</text>
+      <text x="210" y="455" text-anchor="middle" class="detail">Monitor</text><circle cx="520" cy="385" r="16" fill="#FFFFFF" stroke="#B96B16" stroke-width="7"/>
+      <text x="520" y="427" text-anchor="middle" class="tiny" style="fill:#B96B16">+5 business days</text>
+      <text x="520" y="455" text-anchor="middle" class="detail">Open carrier case</text><circle cx="830" cy="385" r="16" fill="#FFFFFF" stroke="#B96B16" stroke-width="7"/>
+      <text x="830" y="427" text-anchor="middle" class="tiny" style="fill:#B96B16">+10 business days</text>
+      <text x="830" y="455" text-anchor="middle" class="detail">Escalate as potentially lost</text>
+      <rect x="60" y="555" width="920" height="70" rx="12" fill="#F4F6F9"/>
+    <text x="82" y="597" class="detail">Carrier investigation timing does not automatically create refund eligibility.</text>
+    </svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+    <rect width="1040" height="620" rx="24" fill="#FFFFFF"/>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #243142; }
+      .title { font-size: 29px; font-weight: 700; letter-spacing: 1px; }
+      .subtitle { font-size: 17px; fill: #667386; }
+      .label { font-size: 20px; font-weight: 700; }
+      .detail { font-size: 16px; }
+      .tiny { font-size: 14px; font-weight: 700; }
+    </style>
+      <rect x="0" y="0" width="1040" height="92" rx="24" fill="#183153"/>
+    <text x="42" y="42" class="title" fill="#FFFFFF" style="fill:#FFFFFF">AU DAMAGED-ITEM RESOLUTION MATRIX</text>
+    <text x="42" y="70" class="subtitle" fill="#FFFFFF" style="fill:#FFFFFF;opacity:.82">Apply the row matching the verified issue category</text>
+      <rect x="60" y="130" width="280" height="70" fill="#183153" stroke="#CBD3DD"/>
+      <text x="78" y="172" class="tiny" style="fill:#FFFFFF">ISSUE</text><rect x="340" y="130" width="260" height="70" fill="#183153" stroke="#CBD3DD"/>
+      <text x="358" y="172" class="tiny" style="fill:#FFFFFF">REPORT WINDOW</text><rect x="600" y="130" width="380" height="70" fill="#183153" stroke="#CBD3DD"/>
+      <text x="618" y="172" class="tiny" style="fill:#FFFFFF">APPROVED OUTCOME</text>
+      <rect x="60" y="210" width="280" height="70" fill="#EAF2FF" stroke="#CBD3DD"/>
+      <text x="78" y="252" class="detail" style="fill:#243142">Minor cosmetic</text><rect x="340" y="210" width="260" height="70" fill="#EAF2FF" stroke="#CBD3DD"/>
+      <text x="358" y="252" class="detail" style="fill:#243142">Within 14 days</text><rect x="600" y="210" width="380" height="70" fill="#EAF2FF" stroke="#CBD3DD"/>
+      <text x="618" y="252" class="detail" style="fill:#243142">Exchange</text>
+      <rect x="60" y="290" width="280" height="70" fill="#E8F5EE" stroke="#CBD3DD"/>
+      <text x="78" y="332" class="detail" style="fill:#243142">Functional damage</text><rect x="340" y="290" width="260" height="70" fill="#E8F5EE" stroke="#CBD3DD"/>
+      <text x="358" y="332" class="detail" style="fill:#243142">Within 30 days</text><rect x="600" y="290" width="380" height="70" fill="#E8F5EE" stroke="#CBD3DD"/>
+      <text x="618" y="332" class="detail" style="fill:#243142">Refund or replacement</text>
+      <rect x="60" y="370" width="280" height="70" fill="#FCE9E9" stroke="#CBD3DD"/>
+      <text x="78" y="412" class="detail" style="fill:#B33A3A">Safety defect</text><rect x="340" y="370" width="260" height="70" fill="#FCE9E9" stroke="#CBD3DD"/>
+      <text x="358" y="412" class="detail" style="fill:#B33A3A">Any time</text><rect x="600" y="370" width="380" height="70" fill="#FCE9E9" stroke="#CBD3DD"/>
+      <text x="618" y="412" class="detail" style="fill:#B33A3A">Immediate safety escalation</text>
+      <rect x="60" y="500" width="920" height="70" rx="12" fill="#F4F6F9"/>
+    <text x="82" y="542" class="detail">If the issue category cannot be verified, request evidence before selecting a remedy.</text>
+    </svg>

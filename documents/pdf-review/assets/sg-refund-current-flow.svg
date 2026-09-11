@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+    <rect width="1040" height="620" rx="24" fill="#FFFFFF"/>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #243142; }
+      .title { font-size: 29px; font-weight: 700; letter-spacing: 1px; }
+      .subtitle { font-size: 17px; fill: #667386; }
+      .label { font-size: 20px; font-weight: 700; }
+      .detail { font-size: 16px; }
+      .tiny { font-size: 14px; font-weight: 700; }
+    </style>
+      <rect x="0" y="0" width="1040" height="92" rx="24" fill="#183153"/>
+    <text x="42" y="42" class="title" fill="#FFFFFF" style="fill:#FFFFFF">CURRENT SG DECISION FLOW</text>
+    <text x="42" y="70" class="subtitle" fill="#FFFFFF" style="fill:#FFFFFF;opacity:.82">Use verified delivery and report dates</text>
+      <rect x="40" y="120" width="250" height="110" rx="16" fill="#EAF2FF" stroke="#2E6FD8" stroke-width="3"/>
+    <text x="165" y="163" text-anchor="middle" class="label" style="fill:#2E6FD8">ORDER DELIVERED?</text>
+    <text x="165" y="192" text-anchor="middle" class="detail">Confirm carrier status</text>
+      <line x1="290" y1="175" x2="355" y2="175" stroke="#667386" stroke-width="3"/>
+    <polygon points="355,175 342,167 342,183" fill="#667386"/>
+    <text x="322.5" y="164" text-anchor="middle" class="tiny">YES</text>
+      <rect x="355" y="120" width="305" height="110" rx="16" fill="#E8F6F4" stroke="#177E89" stroke-width="3"/>
+    <text x="507.5" y="163" text-anchor="middle" class="label" style="fill:#177E89">DAMAGE EVIDENCE?</text>
+    <text x="507.5" y="192" text-anchor="middle" class="detail">Photo or approved assessment</text>
+      <line x1="507" y1="230" x2="507" y2="300" stroke="#667386" stroke-width="3"/>
+    <polygon points="507,300 499,287 515,287" fill="#667386"/>
+    <text x="525" y="265" text-anchor="middle" class="tiny">YES</text>
+      <polygon points="507.5,300 640,365 507.5,430 375,365" fill="#FFF2DE" stroke="#B96B16" stroke-width="3"/>
+    <text x="507.5" y="355" text-anchor="middle" class="tiny" style="fill:#B96B16">REPORTED WITHIN</text>
+    <text x="507.5" y="383" text-anchor="middle" class="label" style="fill:#B96B16">30 DAYS</text>
+      <line x1="375" y1="365" x2="260" y2="365" stroke="#667386" stroke-width="3"/>
+    <polygon points="260,365 247,357 247,373" fill="#667386"/>
+    <text x="317.5" y="354" text-anchor="middle" class="tiny">YES</text>
+      <rect x="40" y="320" width="220" height="95" rx="16" fill="#E8F5EE" stroke="#237A57" stroke-width="3"/>
+    <text x="150" y="363" text-anchor="middle" class="label" style="fill:#237A57">FULL REFUND</text>
+    <text x="150" y="392" text-anchor="middle" class="detail">Original payment method</text>
+      <line x1="640" y1="365" x2="755" y2="365" stroke="#667386" stroke-width="3"/>
+    <polygon points="755,365 742,357 742,373" fill="#667386"/>
+    <text x="697.5" y="354" text-anchor="middle" class="tiny">NO</text>
+      <rect x="755" y="320" width="220" height="95" rx="16" fill="#FCE9E9" stroke="#B33A3A" stroke-width="3"/>
+    <text x="865" y="363" text-anchor="middle" class="label" style="fill:#B33A3A">WARRANTY REVIEW</text>
+    <text x="865" y="392" text-anchor="middle" class="detail">No automatic refund</text>
+      <rect x="40" y="500" width="960" height="70" rx="12" fill="#F4F6F9"/>
+    <text x="62" y="542" class="detail">In-transit orders: do not use this flow. Follow the shipping investigation guide.</text>
+    </svg>

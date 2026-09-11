@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+    <rect width="1040" height="620" rx="24" fill="#FFFFFF"/>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #243142; }
+      .title { font-size: 29px; font-weight: 700; letter-spacing: 1px; }
+      .subtitle { font-size: 17px; fill: #667386; }
+      .label { font-size: 20px; font-weight: 700; }
+      .detail { font-size: 16px; }
+      .tiny { font-size: 14px; font-weight: 700; }
+    </style>
+      <rect x="0" y="0" width="1040" height="92" rx="24" fill="#B33A3A"/>
+    <text x="42" y="42" class="title" fill="#FFFFFF" style="fill:#FFFFFF">SUPERSEDED SG DECISION FLOW</text>
+    <text x="42" y="70" class="subtitle" fill="#FFFFFF" style="fill:#FFFFFF;opacity:.82">Archived version — do not use for current cases</text>
+      <rect x="65" y="135" width="270" height="110" rx="16" fill="#FCE9E9" stroke="#B33A3A" stroke-width="3"/>
+    <text x="200" y="178" text-anchor="middle" class="label" style="fill:#B33A3A">DELIVERED + DAMAGED</text>
+    <text x="200" y="207" text-anchor="middle" class="detail">Evidence required</text>
+      <line x1="335" y1="190" x2="440" y2="190" stroke="#667386" stroke-width="3"/>
+    <polygon points="440,190 427,182 427,198" fill="#667386"/>
+    <text x="387.5" y="179" text-anchor="middle" class="tiny">THEN</text>
+      <polygon points="580,125 720,190 580,255 440,190" fill="#FFF2DE" stroke="#B96B16" stroke-width="3"/>
+    <text x="580" y="180" text-anchor="middle" class="tiny" style="fill:#B96B16">REPORTED WITHIN</text>
+    <text x="580" y="208" text-anchor="middle" class="label" style="fill:#B96B16">14 DAYS</text>
+      <line x1="580" y1="255" x2="580" y2="335" stroke="#667386" stroke-width="3"/>
+    <polygon points="580,335 572,322 588,322" fill="#667386"/>
+    <text x="598" y="295" text-anchor="middle" class="tiny">YES</text>
+      <rect x="430" y="335" width="300" height="100" rx="16" fill="#FCE9E9" stroke="#B33A3A" stroke-width="3"/>
+    <text x="580" y="378" text-anchor="middle" class="label" style="fill:#B33A3A">STORE CREDIT</text>
+    <text x="580" y="407" text-anchor="middle" class="detail">Former standard remedy</text>
+      <rect x="65" y="510" width="910" height="70" rx="12" fill="#F4F6F9"/>
+    <text x="87" y="552" class="detail">This historical threshold conflicts with the current policy and is included as a version-filtering test.</text>
+    </svg>

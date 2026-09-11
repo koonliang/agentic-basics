@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+    <rect width="1040" height="620" rx="24" fill="#FFFFFF"/>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #243142; }
+      .title { font-size: 29px; font-weight: 700; letter-spacing: 1px; }
+      .subtitle { font-size: 17px; fill: #667386; }
+      .label { font-size: 20px; font-weight: 700; }
+      .detail { font-size: 16px; }
+      .tiny { font-size: 14px; font-weight: 700; }
+    </style>
+      <rect x="0" y="0" width="1040" height="92" rx="24" fill="#183153"/>
+    <text x="42" y="42" class="title" fill="#FFFFFF" style="fill:#FFFFFF">STANDARD WARRANTY COVERAGE MAP</text>
+    <text x="42" y="70" class="subtitle" fill="#FFFFFF" style="fill:#FFFFFF;opacity:.82">Coverage begins on the recorded purchase date</text>
+      <rect x="55" y="145" width="280" height="120" rx="16" fill="#E8F5EE" stroke="#237A57" stroke-width="3"/>
+    <text x="195" y="188" text-anchor="middle" class="label" style="fill:#237A57">MANUFACTURING DEFECT</text>
+    <text x="195" y="217" text-anchor="middle" class="detail">12 months • Repair or replace</text>
+      <rect x="365" y="145" width="280" height="120" rx="16" fill="#EAF2FF" stroke="#2E6FD8" stroke-width="3"/>
+    <text x="505" y="188" text-anchor="middle" class="label" style="fill:#2E6FD8">BATTERY CAPACITY</text>
+    <text x="505" y="217" text-anchor="middle" class="detail">6 months • Diagnostic review</text>
+      <rect x="675" y="145" width="280" height="120" rx="16" fill="#FCE9E9" stroke="#B33A3A" stroke-width="3"/>
+    <text x="815" y="188" text-anchor="middle" class="label" style="fill:#B33A3A">ACCIDENTAL DAMAGE</text>
+    <text x="815" y="217" text-anchor="middle" class="detail">Not covered • Paid service</text>
+      <rect x="90" y="350" width="400" height="120" rx="16" fill="#FFF2DE" stroke="#B96B16" stroke-width="3"/>
+    <text x="290" y="393" text-anchor="middle" class="label" style="fill:#B96B16">SAFETY-RELATED FAILURE</text>
+    <text x="290" y="422" text-anchor="middle" class="detail">Escalate immediately</text>
+      <rect x="550" y="350" width="400" height="120" rx="16" fill="#F1EDF9" stroke="#7251A3" stroke-width="3"/>
+    <text x="750" y="393" text-anchor="middle" class="label" style="fill:#7251A3">UNAUTHORIZED MODIFICATION</text>
+    <text x="750" y="422" text-anchor="middle" class="detail">Manual review required</text>
+    </svg>

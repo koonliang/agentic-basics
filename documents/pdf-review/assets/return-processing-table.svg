@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+    <rect width="1040" height="620" rx="24" fill="#FFFFFF"/>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #243142; }
+      .title { font-size: 29px; font-weight: 700; letter-spacing: 1px; }
+      .subtitle { font-size: 17px; fill: #667386; }
+      .label { font-size: 20px; font-weight: 700; }
+      .detail { font-size: 16px; }
+      .tiny { font-size: 14px; font-weight: 700; }
+    </style>
+      <rect x="0" y="0" width="1040" height="92" rx="24" fill="#183153"/>
+    <text x="42" y="42" class="title" fill="#FFFFFF" style="fill:#FFFFFF">RETURN PROCESSING MATRIX</text>
+    <text x="42" y="70" class="subtitle" fill="#FFFFFF" style="fill:#FFFFFF;opacity:.82">Match product and region before selecting a rule</text>
+      <rect x="28" y="112" width="190" height="65" fill="#183153" stroke="#D9E0E8"/>
+        <text x="40" y="150" class="tiny" style="fill:#FFFFFF">Product</text><rect x="218" y="112" width="70" height="65" fill="#183153" stroke="#D9E0E8"/>
+        <text x="230" y="150" class="tiny" style="fill:#FFFFFF">Region</text><rect x="288" y="112" width="130" height="65" fill="#183153" stroke="#D9E0E8"/>
+        <text x="300" y="150" class="tiny" style="fill:#FFFFFF">Return window</text><rect x="418" y="112" width="155" height="65" fill="#183153" stroke="#D9E0E8"/>
+        <text x="430" y="150" class="tiny" style="fill:#FFFFFF">Processing fee</text><rect x="573" y="112" width="195" height="65" fill="#183153" stroke="#D9E0E8"/>
+        <text x="585" y="150" class="tiny" style="fill:#FFFFFF">Evidence</text><rect x="768" y="112" width="244" height="65" fill="#183153" stroke="#D9E0E8"/>
+        <text x="780" y="150" class="tiny" style="fill:#FFFFFF">Resolution</text><rect x="28" y="177" width="190" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="40" y="215" class="detail" style="fill:#243142">Electronics</text><rect x="218" y="177" width="70" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="230" y="215" class="detail" style="fill:#243142">SG</text><rect x="288" y="177" width="130" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="300" y="215" class="detail" style="fill:#243142">30 days</text><rect x="418" y="177" width="155" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="430" y="215" class="detail" style="fill:#243142">10% if opened</text><rect x="573" y="177" width="195" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="585" y="215" class="detail" style="fill:#243142">Serial + photo</text><rect x="768" y="177" width="244" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="780" y="215" class="detail" style="fill:#243142">Refund</text><rect x="28" y="242" width="190" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="40" y="280" class="detail" style="fill:#243142">Electronics</text><rect x="218" y="242" width="70" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="230" y="280" class="detail" style="fill:#243142">AU</text><rect x="288" y="242" width="130" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="300" y="280" class="detail" style="fill:#243142">30 days</text><rect x="418" y="242" width="155" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="430" y="280" class="detail" style="fill:#243142">None</text><rect x="573" y="242" width="195" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="585" y="280" class="detail" style="fill:#243142">Receipt</text><rect x="768" y="242" width="244" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="780" y="280" class="detail" style="fill:#243142">Refund or replacement</text><rect x="28" y="307" width="190" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="40" y="345" class="detail" style="fill:#243142">Home appliances</text><rect x="218" y="307" width="70" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="230" y="345" class="detail" style="fill:#243142">SG</text><rect x="288" y="307" width="130" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="300" y="345" class="detail" style="fill:#243142">21 days</text><rect x="418" y="307" width="155" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="430" y="345" class="detail" style="fill:#243142">15% if installed</text><rect x="573" y="307" width="195" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="585" y="345" class="detail" style="fill:#243142">Installation report</text><rect x="768" y="307" width="244" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="780" y="345" class="detail" style="fill:#243142">Warranty review</text><rect x="28" y="372" width="190" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="40" y="410" class="detail" style="fill:#243142">Furniture</text><rect x="218" y="372" width="70" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="230" y="410" class="detail" style="fill:#243142">SG</text><rect x="288" y="372" width="130" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="300" y="410" class="detail" style="fill:#243142">14 days</text><rect x="418" y="372" width="155" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="430" y="410" class="detail" style="fill:#243142">20% if assembled</text><rect x="573" y="372" width="195" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="585" y="410" class="detail" style="fill:#243142">Delivery photos</text><rect x="768" y="372" width="244" height="65" fill="#EAF2FF" stroke="#D9E0E8"/>
+        <text x="780" y="410" class="detail" style="fill:#243142">Refund</text><rect x="28" y="437" width="190" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="40" y="475" class="detail" style="fill:#243142">Wearables</text><rect x="218" y="437" width="70" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="230" y="475" class="detail" style="fill:#243142">AU</text><rect x="288" y="437" width="130" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="300" y="475" class="detail" style="fill:#243142">30 days</text><rect x="418" y="437" width="155" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="430" y="475" class="detail" style="fill:#243142">None</text><rect x="573" y="437" width="195" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="585" y="475" class="detail" style="fill:#243142">Device diagnostic</text><rect x="768" y="437" width="244" height="65" fill="#FFFFFF" stroke="#D9E0E8"/>
+        <text x="780" y="475" class="detail" style="fill:#243142">Refund or replacement</text><rect x="28" y="502" width="190" height="65" fill="#FCE9E9" stroke="#D9E0E8"/>
+        <text x="40" y="540" class="detail" style="fill:#B33A3A">Clearance items</text><rect x="218" y="502" width="70" height="65" fill="#FCE9E9" stroke="#D9E0E8"/>
+        <text x="230" y="540" class="detail" style="fill:#B33A3A">All</text><rect x="288" y="502" width="130" height="65" fill="#FCE9E9" stroke="#D9E0E8"/>
+        <text x="300" y="540" class="detail" style="fill:#B33A3A">Final sale</text><rect x="418" y="502" width="155" height="65" fill="#FCE9E9" stroke="#D9E0E8"/>
+        <text x="430" y="540" class="detail" style="fill:#B33A3A">N/A</text><rect x="573" y="502" width="195" height="65" fill="#FCE9E9" stroke="#D9E0E8"/>
+        <text x="585" y="540" class="detail" style="fill:#B33A3A">Safety evidence</text><rect x="768" y="502" width="244" height="65" fill="#FCE9E9" stroke="#D9E0E8"/>
+        <text x="780" y="540" class="detail" style="fill:#B33A3A">Safety review only</text>
+    </svg>

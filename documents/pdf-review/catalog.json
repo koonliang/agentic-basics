@@ -1,0 +1,82 @@
+[
+  {
+    "id": "POL-SG-REF-2026",
+    "filename": "pdfs/sg-refund-policy-current.pdf",
+    "title": "Singapore Refund Policy",
+    "region": "Singapore",
+    "version": "3.2",
+    "effective": "1 September 2026",
+    "status": "current",
+    "pages": 3
+  },
+  {
+    "id": "POL-SG-REF-2025",
+    "filename": "pdfs/sg-refund-policy-superseded.pdf",
+    "title": "Singapore Refund Policy",
+    "region": "Singapore",
+    "version": "2.4",
+    "effective": "15 January 2025",
+    "status": "superseded",
+    "pages": 2
+  },
+  {
+    "id": "POL-AU-REF-2026",
+    "filename": "pdfs/au-refund-policy-current.pdf",
+    "title": "Australia Refund Policy",
+    "region": "Australia",
+    "version": "4.0",
+    "effective": "1 July 2026",
+    "status": "current",
+    "pages": 2
+  },
+  {
+    "id": "OPS-SHIP-2026",
+    "filename": "pdfs/shipping-investigation-guide.pdf",
+    "title": "Shipping Investigation Guide",
+    "region": "Global",
+    "version": "2.1",
+    "effective": "20 August 2026",
+    "status": "current",
+    "pages": 3
+  },
+  {
+    "id": "POL-WAR-2026",
+    "filename": "pdfs/product-warranty-guide.pdf",
+    "title": "Product Warranty Guide",
+    "region": "Global",
+    "version": "1.8",
+    "effective": "10 June 2026",
+    "status": "current",
+    "pages": 2
+  },
+  {
+    "id": "OPS-ESC-2026",
+    "filename": "pdfs/support-escalation-guide.pdf",
+    "title": "Support Escalation Guide",
+    "region": "Global",
+    "version": "3.0",
+    "effective": "5 September 2026",
+    "status": "current",
+    "pages": 2
+  },
+  {
+    "id": "TEST-TABLE-NATIVE",
+    "filename": "pdfs/return-processing-table-native.pdf",
+    "title": "Return Processing Matrix",
+    "region": "Global",
+    "version": "1.0",
+    "effective": "1 September 2026",
+    "status": "test fixture",
+    "pages": 1
+  },
+  {
+    "id": "TEST-TABLE-IMAGE",
+    "filename": "pdfs/return-processing-table-image.pdf",
+    "title": "Return Processing Matrix",
+    "region": "Global",
+    "version": "1.0",
+    "effective": "1 September 2026",
+    "status": "test fixture",
+    "pages": 1
+  }
+]
