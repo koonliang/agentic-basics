@@ -55,7 +55,7 @@ If you change `PORT`, update the port in `MCP_SERVER_URL` to match. Existing she
 | [Lab12](./Lab12/README.md) | Add CloudWatch AgentCore Observability and AgentCore Evaluations | Implemented |
 | [Lab13](./Lab13/README.md) | Ingest policy PDFs into Bedrock Knowledge Bases and inspect semantic retrieval | Implemented |
 | [Lab14](./Lab14/README.md) | Compare ungrounded answers with retrieved, cited evidence | Implemented |
-| Lab15 | Add metadata filters and evaluate version-aware retrieval | Planned |
+| [Lab15](./Lab15/README.md) | Add metadata filters and evaluate version-aware retrieval | Implemented |
 | Lab16 | Parse diagrams and tables for multimodal RAG | Planned |
 
 ## Tool taxonomy

@@ -64,6 +64,7 @@ test("builds separate ungrounded and citation-enabled grounded requests", () => 
   });
   assert.match(String(grounded.system), /only facts explicitly stated/);
   assert.match(String(grounded.system), new RegExp(ABSTENTION.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.match(String(grounded.system), /entire response/);
 });
 
 test("compares an ungrounded answer with a cited grounded answer", async () => {
@@ -107,6 +108,37 @@ test("accepts the exact model abstention without citations", () => {
     citations: [],
     abstained: true,
   });
+});
+
+test("canonicalizes abstention followed by text or citations", () => {
+  assert.deepEqual(readCitedAnswer(
+    textResponse(`${ABSTENTION}\n\nAdditional explanation.`),
+    evidence,
+  ), {
+    text: ABSTENTION,
+    citations: [],
+    abstained: true,
+  });
+  assert.deepEqual(readCitedAnswer({
+    content: [
+      { type: "text", text: ABSTENTION, citations: null },
+      ...citedResponse(" Additional cited explanation.").content,
+    ],
+    stopReason: "end_turn",
+  }, evidence), {
+    text: ABSTENTION,
+    citations: [],
+    abstained: true,
+  });
+});
+
+test("does not canonicalize an abstention sentence appearing later", () => {
+  const answer = readCitedAnswer(
+    citedResponse(`Evidence is incomplete. ${ABSTENTION}`),
+    evidence,
+  );
+  assert.equal(answer.abstained, false);
+  assert.deepEqual(answer.citations, ["sg-refund-policy-current.pdf"]);
 });
 
 test("rejects uncited and mismatched grounded answers", () => {
