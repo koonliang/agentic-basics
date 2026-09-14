@@ -1,0 +1,27 @@
+{
+  "name": "agentic-ai-lab14",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ingest": "node --env-file-if-exists=../.env --import tsx src/ingest.ts",
+    "demo": "node --env-file-if-exists=../.env --import tsx src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest",
+    "@aws-sdk/client-bedrock-agent": "latest",
+    "@aws-sdk/client-bedrock-agent-runtime": "latest",
+    "@aws-sdk/client-s3": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
