@@ -1,0 +1,38 @@
+[
+  {
+    "id": "opened-singapore-electronics",
+    "question": "What fee applies to opened electronics returned in Singapore?",
+    "expected_fact_groups": [["10%", "10 percent"]]
+  },
+  {
+    "id": "electronics-region-comparison",
+    "question": "Compare electronics rules for Singapore and Australia.",
+    "expected_fact_groups": [
+      ["30 days"],
+      ["10%", "10 percent"],
+      ["none", "no fee", "no processing fee"],
+      ["refund"],
+      ["replacement"]
+    ]
+  },
+  {
+    "id": "singapore-home-appliances",
+    "question": "For the Singapore product with a 21-day window, state the product, return window in days, processing fee, required evidence, and resolution.",
+    "expected_fact_groups": [
+      ["home appliances"],
+      ["21 days", "21-day", "21 day", "three weeks"],
+      ["15%", "15 percent"],
+      ["installation report"],
+      ["warranty review"]
+    ]
+  },
+  {
+    "id": "clearance-item-exception",
+    "question": "What is the clearance-item exception?",
+    "expected_fact_groups": [
+      ["final sale"],
+      ["safety evidence"],
+      ["safety review only", "only safety review"]
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "singapore-current-vs-archived",
+    "question": "Compare the current and archived guidance for damaged Singapore deliveries.",
+    "filter": { "region": "Singapore", "status": "current", "as_of": "2026-09-14" },
+    "unfiltered_must_include": ["sg-refund-policy-current.pdf", "sg-refund-policy-superseded.pdf"],
+    "filtered_must_include": ["sg-refund-policy-current.pdf"],
+    "filtered_must_exclude": ["sg-refund-policy-superseded.pdf"]
+  },
+  {
+    "id": "australia-current",
+    "question": "What checks are required before deciding a remedy for a damaged Australian delivery?",
+    "filter": { "region": "Australia", "status": "current", "as_of": "2026-09-14" },
+    "unfiltered_must_include": ["au-refund-policy-current.pdf"],
+    "filtered_must_include": ["au-refund-policy-current.pdf"],
+    "filtered_must_exclude": ["sg-refund-policy-current.pdf", "sg-refund-policy-superseded.pdf"]
+  },
+  {
+    "id": "regional-query-keeps-global",
+    "question": "When should a support case be escalated and which queue owns it?",
+    "filter": { "region": "Singapore", "status": "current", "as_of": "2026-09-14" },
+    "unfiltered_must_include": ["support-escalation-guide.pdf"],
+    "filtered_must_include": ["support-escalation-guide.pdf"],
+    "filtered_must_exclude": []
+  },
+  {
+    "id": "future-effective-document",
+    "question": "Which queue owns a material-impact support escalation and how quickly should it respond?",
+    "filter": { "region": "Global", "status": "current", "as_of": "2026-09-01" },
+    "unfiltered_must_include": ["support-escalation-guide.pdf"],
+    "filtered_must_include": [],
+    "filtered_must_exclude": ["support-escalation-guide.pdf"]
+  }
+]
